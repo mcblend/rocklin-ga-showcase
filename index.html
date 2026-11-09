@@ -188,7 +188,10 @@ th{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut
 .copyrow button,.copyrow a{min-height:38px;display:inline-flex;align-items:center;border:1.5px solid #ffffff40;background:transparent;color:var(--on-navy);border-radius:8px;padding:5px 10px;font-size:13.5px;font-weight:700;text-decoration:none}
 
 .soon{background:transparent;border:2px dashed var(--line);box-shadow:none}
-footer{color:var(--muted);font-size:13px;padding-block:0 36px;text-align:center}
+.totop{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;width:48px;height:48px;border-radius:50%;border:2px solid #fff;background:var(--navy);color:#fff;display:grid;place-items:center;box-shadow:0 6px 16px rgba(27,37,65,.35);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .2s,transform .2s}
+.totop.show{opacity:1;transform:none;pointer-events:auto}
+.totop:active{background:var(--card)}
+footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
 @media (max-width:440px){.game{grid-template-columns:82px 1fr;padding:12px 14px 12px 18px}.game .t{font-size:19px}}
 /* Food & fun */
 .subh{font-size:18px;font-weight:800;margin-top:10px}
@@ -404,9 +407,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 36px;text-align:center}
 
     <h3 class="subh" id="todo">Things to do</h3>
     <p class="note" style="margin:0">Drive times are typical light-traffic ranges from Old Town Scottsdale (hotel) and central Mesa, not from the fields. Friday afternoon and weekend evenings on the 101 and 202 run longer.</p>
-    <span class="minih">This weekend only</span>
     <div class="events" id="events"></div>
-    <span class="minih">Anytime</span>
     <div class="ftabs" role="group" aria-label="Filter things to do by area" data-filter="things"></div>
     <p class="note areanote" id="things-note"></p>
     <div class="grid-things" id="things"></div>
@@ -444,6 +445,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 36px;text-align:center}
   </section>
 
 </div></main>
+<button type="button" class="totop" id="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <footer><div class="wrap">Schedule as of Nov 8, 2026. Check GotSport for the latest times.</div></footer>
 
 <script>
@@ -742,6 +744,10 @@ footer{color:var(--muted);font-size:13px;padding-block:0 36px;text-align:center}
     }).join('');
   }
   document.getElementById('neartabs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;nearSide=b.dataset.near;renderNear();});
+  var totop=document.getElementById('totop');
+  function onScroll(){totop.classList.toggle('show',window.scrollY>600);}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  totop.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
   renderNear();renderTeamEvents();renderEvents();renderPlan();renderList('things');renderList('eats');
 
   renderAll();
