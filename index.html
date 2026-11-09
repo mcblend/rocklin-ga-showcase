@@ -303,6 +303,11 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
 
   <section id="games">
     <div class="sec-h"><h2>Games</h2><span class="aside">Thu, Nov 12 is the travel day</span></div>
+    <div class="ftabs" role="group" aria-label="Choose game day" id="gametabs">
+      <button type="button" data-gday="fri" aria-pressed="true">Friday</button>
+      <button type="button" data-gday="sat" aria-pressed="false">Saturday</button>
+      <button type="button" data-gday="sun" aria-pressed="false">Sunday</button>
+    </div>
     <div id="days" style="display:grid;gap:14px"></div>
     <p class="note">"@" means our team is listed as the away team. Tap a field number to find it on the map.</p>
   </section>
@@ -502,9 +507,12 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
       '<div class="actions"><a class="btn primary" href="'+VENUE+'" target="_blank" rel="noopener">Directions</a><button type="button" class="btn ghost" data-field="'+g.field+'">Find field '+g.field+'</button></div>';
   }
 
+  var gameDay='fri';
+  (function(){var now=new Date();if(now>=new Date('2026-11-15T00:00:00-07:00'))gameDay='sun';else if(now>=new Date('2026-11-14T00:00:00-07:00'))gameDay='sat';})();
   function renderDays(){
     var out='';
-    DAYS.forEach(function(d){
+    document.querySelectorAll('#gametabs button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.gday===gameDay?'true':'false');});
+    DAYS.filter(function(d){return d.k===gameDay;}).forEach(function(d){
       var gs=GAMES.filter(function(g){return g.d===d.k;}).sort(function(a,b){return a.t-b.t;});
       out+='<article class="day"><div class="day-h"><div><span class="label">Day '+d.n+'</span><h3>'+d.name+' · '+d.date+'</h3></div><span class="wx num"><span class="sun"></span><b>'+d.hi+'°</b> / '+d.lo+'°<span class="rain">'+d.rain+'% rain</span></span></div>';
       gs.forEach(function(g){
@@ -748,6 +756,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
   function onScroll(){totop.classList.toggle('show',window.scrollY>600);}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
   totop.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+  document.getElementById('gametabs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;gameDay=b.dataset.gday;renderDays();});
   renderNear();renderTeamEvents();renderEvents();renderPlan();renderList('things');renderList('eats');
 
   renderAll();
