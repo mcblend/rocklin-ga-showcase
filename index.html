@@ -198,14 +198,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
 /* Food & fun */
 .subh{font-size:18px;font-weight:800;margin-top:10px}
 .minih{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--card);margin-top:6px}
-.tevents{display:grid;gap:8px}
-.tev{background:var(--surface);border-radius:12px;padding:12px 16px;display:grid;grid-template-columns:86px 1fr;gap:2px 12px;box-shadow:0 0 0 2px var(--card)}
-.tev .when{font-weight:800;font-size:15px;line-height:1.2}
-.tev .when small{display:block;font-size:12px;font-weight:700;color:var(--card);text-transform:uppercase;letter-spacing:.08em}
-.tev b{font-size:15px}
-.tev span{font-size:14px;color:var(--muted)}
-.tev-empty{background:var(--surface);border:2px dashed var(--card);border-radius:12px;padding:14px 16px;font-size:14.5px}
-.tev-empty b{display:block;color:var(--card);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+
 .ftabs{display:flex;flex-wrap:wrap;gap:6px}
 .ftabs button{min-height:40px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;font-size:14px;padding:8px 14px;border-radius:999px}
 .ftabs button span{font-weight:500;color:var(--muted);margin-left:3px}
@@ -220,14 +213,25 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
 .ev .where{color:var(--navy-muted);font-size:13px;font-weight:600}
 .ev p{margin:2px 0 0;font-size:13.5px;color:#dfe4ef}
 .ev a{color:var(--peach);font-weight:700;font-size:13.5px;margin-top:4px}
+#plantabs{display:grid;grid-template-columns:repeat(4,1fr)}
+#plantabs button{padding-inline:4px}
+.dp-note{margin:0;font-size:14px;font-weight:700;color:var(--card)}
 .plan{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.plan li{background:var(--surface);border-radius:12px;padding:12px 16px 12px 52px;position:relative;box-shadow:0 1px 0 var(--line)}
-.plan li::before{content:attr(data-n);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;background:var(--chipbg);color:var(--ink);font-weight:800;font-size:13px;display:grid;place-items:center}
-.plan li b{display:block;font-size:15px}
-.plan li span{font-size:14px;color:var(--muted)}
-.plan li.gameday{background:var(--card);color:#fff;box-shadow:none}
-.plan li.gameday::before{background:#ffffff33;color:#fff}
-.plan li.gameday span{color:#ffe7df}
+.plan li{background:var(--surface);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:84px 1fr;gap:2px 12px;box-shadow:0 1px 0 var(--line)}
+.plan .pt{font-weight:800;font-size:14px;line-height:1.3}
+.plan .pb{display:grid;gap:3px;min-width:0}
+.plan .pb b{font-size:15px;line-height:1.3}
+.plan .pb span{font-size:14px;color:var(--muted)}
+.plan .tags{display:flex;flex-wrap:wrap;gap:4px}
+.ptag{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:2px 8px;background:var(--card-soft);color:var(--card)}
+.ptag.tbd{background:var(--chipbg);color:var(--ink)}
+.plan li.k-free{background:transparent;box-shadow:none;border:1.5px dashed var(--line)}
+.plan li.k-game{background:var(--card);color:#fff;box-shadow:none}
+.plan li.k-game .pb span{color:#ffe7df}
+.plan li.k-game .ptag{background:#ffffff33;color:#fff}
+.kit{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;font-size:13px;font-weight:700}
+.kit i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px;border:1px solid #ffffff66}
+.kit .navy{background:#1b2541}.kit .gray{background:#9aa0a8}
 .areanote{margin:0}
 .grid-things{display:grid;grid-template-columns:1fr;gap:10px}
 @media (min-width:640px){.grid-things{grid-template-columns:1fr 1fr}}
@@ -390,15 +394,15 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
 
   <section id="food">
     <div class="sec-h"><h2>Food &amp; fun</h2><span class="aside">Built around U15 and the Scottsdale hotel</span></div>
-    <h3 class="subh" id="team-events">Team events</h3>
-    <div id="teamevents"></div>
-
-    <h3 class="subh">Sample day plans</h3>
+    <h3 class="subh" id="team-events">Day planner</h3>
+    <p class="note" style="margin:0">The U15 team schedule. Times are Arizona time. Items marked <b>TBD</b> or <b>approx.</b> will firm up closer to the weekend.</p>
     <div class="ftabs" role="group" aria-label="Choose day" id="plantabs">
+      <button type="button" data-day="thu" aria-pressed="false">Thursday</button>
       <button type="button" data-day="fri" aria-pressed="true">Friday</button>
       <button type="button" data-day="sat" aria-pressed="false">Saturday</button>
       <button type="button" data-day="sun" aria-pressed="false">Sunday</button>
     </div>
+    <p class="dp-note" id="plan-note"></p>
     <ol class="plan" id="plan"></ol>
 
     <h3 class="subh" id="todo">Things to do</h3>
@@ -460,10 +464,10 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
 (function(){
   var TEAM_COLOR={U15:'var(--card)',U14:'var(--u14)',U13:'var(--u13)'};
   var GAMES=[
-    {d:'fri',team:'U15',iso:'2026-11-13T13:30',away:false,opp:'West Coast F.C.',field:14,match:296},
+    {d:'fri',team:'U15',kit:1,iso:'2026-11-13T13:30',away:false,opp:'West Coast F.C.',field:14,match:296},
     {d:'fri',team:'U14',iso:'2026-11-13T13:45',away:false,opp:'SoCal Reds FC',field:6,match:358},
     {d:'fri',team:'U13',iso:'2026-11-13T16:45',away:true,opp:'Croatian Eagles SC',field:16,match:431},
-    {d:'sat',team:'U15',iso:'2026-11-14T15:30',away:true,opp:'Arizona Surf SC East Valley',field:16,match:500},
+    {d:'sat',team:'U15',kit:1,iso:'2026-11-14T15:30',away:true,opp:'Arizona Surf SC East Valley',field:16,match:500},
     {d:'sat',team:'U14',iso:'2026-11-14T16:45',away:false,opp:'Grand Junction SC',field:24,match:380},
     {d:'sat',team:'U13',iso:'2026-11-14T17:15',away:false,opp:'City SC',field:11,match:454},
     {d:'sun',team:'U13',iso:'2026-11-15T11:00',away:false,opp:'Spokane Shadow',field:24,match:476},
@@ -506,7 +510,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
     el.innerHTML='<div class="top"><span class="label" style="color:var(--board-muted)">'+(team==='ALL'?'Next Rocklin game':'Next '+g.team+' game')+'</span><span class="cd">'+cd+'</span></div>'+
       '<div class="when num">'+fmt(g.t)+'<small>'+dayName.name+' '+dayName.date+' · local time</small></div>'+
       '<div class="opp">'+(team==='ALL'?'<span class="pill'+(g.team==='U15'?' ours':'')+'" style="--team:'+TEAM_COLOR[g.team]+'">'+g.team+'</span> ':'')+(g.away?'@ ':'vs ')+esc(g.opp)+'</div>'+
-      '<div class="where">Field '+g.field+' · Match #'+g.match+' · Park in '+LOT[g.field]+' · '+fmt(g.t,1)+' PST</div>'+
+      '<div class="where">Field '+g.field+' · Match #'+g.match+' · Park in '+LOT[g.field]+' · '+fmt(g.t,1)+' PST</div>'+(g.kit?kitHTML():'')+
       '<div class="actions"><a class="btn primary" href="'+VENUE+'" target="_blank" rel="noopener">Directions</a><button type="button" class="btn ghost" data-field="'+g.field+'">Find field '+g.field+'</button></div>';
   }
 
@@ -523,7 +527,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
         out+='<div class="game'+cls+'" style="--team:'+TEAM_COLOR[g.team]+'">'+
           '<div class="t num">'+shortT(g.t)+'<small>'+fmt(g.t,1)+' PST</small></div>'+
           '<div class="info"><div class="opp"><span class="pill'+(g.team==='U15'?' ours':'')+'">'+g.team+'</span> <span class="ha">'+(g.away?'@':'vs')+'</span>'+esc(g.opp)+'</div>'+
-          '<div class="row"><button type="button" class="chip" data-field="'+g.field+'">Field '+g.field+'</button><span>Match #'+g.match+'</span><span>· '+LOT[g.field]+'</span></div></div></div>';
+          '<div class="row"><button type="button" class="chip" data-field="'+g.field+'">Field '+g.field+'</button><span>Match #'+g.match+'</span><span>· '+LOT[g.field]+'</span></div>'+(g.kit?kitHTML():'')+'</div></div>';
       });
       out+='</article>';
     });
@@ -602,22 +606,32 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
     {n:'Anime Arizona',w:'Phoenix Convention Center',t:'Fri 2-8 · Sat 10-7 · Sun 10-6',d:'Cosplay, guests, vendors and panels. Kids 12 and under free.',u:'https://www.animearizona.com/'},
     {n:'American Cup Championship',w:'WestWorld of Scottsdale',t:'All weekend',d:'Arabian horse show. Many classes are free to watch.',u:'https://calendar.westworldaz.com/scottsdaleaz_westworld/260198101'}
   ];
+  /* Day planner. kind: team | game | free. tbd: 'TBD' | 'Approx.' */
+  var KIT='navy';
   var PLANS={
-    fri:[['Morning near the hotel','Wonderspaces (about an hour) and Fashion Square, or the Arts & Crafts Festival. Early lunch at Culinary Dropout or Oregano\'s Old Town.'],
-      ['Drive to the fields','Leave Scottsdale with a buffer for 101/202 traffic. Arrive early to pay for parking and warm up.'],
-      ['1:30 PM · U15 vs West Coast F.C.','Field 14 · Match #296. Hydrate; the sun is strong.','game'],
-      ['After the game','Organ Stop Pizza for an early team dinner (call ahead for 20+), or head back toward Scottsdale.'],
-      ['Evening','Topgolf if the group wants competitive and loud, or dessert near the hotel. Hondo Rodeo Fest is its own outing with heavy traffic.']],
-    sat:[['Morning at the Boardwalk','Butterfly Wonderland and/or OdySea Aquarium. Parking there is free. Keep it to the morning.'],
-      ['Drive to the fields','Leave with a buffer on the 101/202. Arrive early for parking and warm-up.'],
-      ['3:30 PM · U15 @ Arizona Surf SC East Valley','Field 16 · Match #500.','game'],
-      ['After the game','Revel Surf if booked ahead, or back toward Scottsdale for dinner.'],
-      ['Evening','Bowling and arcade at FatCats Mesa, or Sugar Bowl milkshakes near the hotel.']],
-    sun:[['Easy morning','McCormick-Stillman Railroad Park or a short Old Town walk. Keep it light; it\'s the last game.'],
-      ['Drive to the fields','Check out and leave early for parking and warm-up.'],
-      ['1:15 PM · U15 vs Spokane Shadow','Field 07 · Match #348.','game'],
-      ['After the game','Celebrate at Joe\'s Farm Grill in Gilbert, or head straight to the airport with a buffer.'],
-      ['Evening, if you\'re staying','Olive & Ivy or Culinary Dropout near the hotel, or the Big Wheel at the Boardwalk.']]
+    thu:{note:'Thu, Nov 12 · Arrival day for most families',items:[
+      {t:'4:00 PM',n:'Hotel check-in',d:'Courtyard Scottsdale Salt River, 5201 N Pima Rd.',k:'team'},
+      {t:'Evening',n:'Team dinner',d:'The Bistro or Agave Cantina, both on the hotel property. Final pick coming soon.',k:'team',tbd:'TBD'},
+      {t:'After dinner',n:'Pool, s\'mores & fire pit',d:'Swim in the hotel\'s heated pool, then s\'mores and hanging out by the fire pit.',k:'team'}]},
+    fri:{note:'Fri, Nov 13 · Game day',items:[
+      {t:'9:30 AM',n:'Team breakfast',d:'The Bistro at the hotel.',k:'team'},
+      {t:'Morning',n:'Free time',d:'Stay close to the hotel. The team leaves at noon.',k:'free'},
+      {t:'12:00 PM',n:'Depart for the fields',d:'Arrive by 12:45 PM for parking and warm-up. The drive is about 40 minutes.',k:'team'},
+      {t:'1:30 PM',n:'U15 vs West Coast F.C.',d:'Field 14 · Match #296',k:'game',kit:1},
+      {t:'3:45-4:00 PM',n:'Back at the hotel',d:'Put the game uniform in the mesh bag and give it to Christi, our Team Manager. She\'s washing them tonight for Saturday.',k:'team'},
+      {t:'6:00 PM',n:'PopStroke mini golf',d:'Team outing. Details coming closer to the date.',k:'team',tbd:'Approx.'}]},
+    sat:{note:'Sat, Nov 14 · Game day',items:[
+      {t:'9:30 AM',n:'Team breakfast',d:'Breakfast buffet at The Bistro at the hotel.',k:'team'},
+      {t:'Until 2:00 PM',n:'Free time',d:'Ideas: Butterfly Wonderland or OdySea at the Boardwalk, about 15 minutes from the hotel. Be back to leave at 2.',k:'free'},
+      {t:'2:00 PM',n:'Depart for the fields',d:'Arrive by 2:45 PM for parking and warm-up.',k:'team'},
+      {t:'3:30 PM',n:'U15 @ Arizona Surf SC East Valley',d:'Field 16 · Match #500. Same uniform as Friday, which is why it gets washed Friday night.',k:'game',kit:1},
+      {t:'~6:00 PM',n:'Back at the hotel',d:'Mesh bag again. Uniforms go to Christi for washing.',k:'team'},
+      {t:'7:30 PM',n:'Escape room',d:'Team outing. Time and location to be confirmed.',k:'team',tbd:'TBD'}]},
+    sun:{note:'Sun, Nov 15 · Final game. More details coming soon.',items:[
+      {t:'9:30 AM',n:'Team breakfast',d:'The Bistro at the hotel.',k:'team'},
+      {t:'Late morning',n:'Check out and depart for the fields',d:'Departure time coming soon. Plan to arrive about 45 minutes before kickoff.',k:'team',tbd:'TBD'},
+      {t:'1:15 PM',n:'U15 vs Spokane Shadow',d:'Field 07 · Match #348',k:'game'},
+      {t:'After the game',n:'Head home',d:'Sunday games end by about 3:00 PM. Leave a buffer if you\'re flying out.',k:'free'}]}
   };
   var THINGS=[
     {n:'OdySea Aquarium',a:'B',c:'Animals · Indoors',h:'12-18',m:'20-28',p:'Adults ~$50',w:'Any time',d:'Largest aquarium in the Southwest. Sharks, sea lions and a rotating theater. Plan 2-3 hours; twilight discount after 4:30.',u:'https://www.odyseaaquarium.com/'},
@@ -659,27 +673,25 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
     {n:'Nick\'s at Frank Lloyd Wright',a:'S',c:'Italian family classics',h:'15-25',m:'30-40',p:'$$',w:'Catering available',d:'Neighborhood Italian with gluten-free options.',u:'https://nicks-italian.com/locations/frank-lloyd-wright'}
   ];
 
-  /* Team itinerary. Fill in when details arrive: {d:'fri'|'sat'|'sun', t:'8:00 AM', n:'Team breakfast', w:'Place, address', note:'optional'} */
-  var TEAM_EVENTS=[];
-  function renderTeamEvents(){
-    var el=document.getElementById('teamevents');
-    if(!TEAM_EVENTS.length){el.innerHTML='<div class="tev-empty"><b>Coming soon</b>Team breakfasts, dinners and get-togethers for the weekend will be posted here.</div>';return;}
-    var names={fri:'Fri',sat:'Sat',sun:'Sun'};
-    el.innerHTML='<div class="tevents">'+TEAM_EVENTS.map(function(e){
-      return '<div class="tev"><div class="when"><small>'+names[e.d]+'</small>'+esc(e.t)+'</div><div><b>'+esc(e.n)+'</b><br><span>'+esc(e.w||'')+(e.note?' · '+esc(e.note):'')+'</span></div></div>';
-    }).join('')+'</div>';
-  }
   function renderEvents(){
     document.getElementById('events').innerHTML=EVENTS.map(function(e){
       return '<article class="ev"><span class="label">'+esc(e.t)+'</span><h4>'+esc(e.n)+'</h4><span class="where">'+esc(e.w)+'</span><p>'+esc(e.d)+'</p><a href="'+e.u+'" target="_blank" rel="noopener">Details ↗</a></article>';
     }).join('');
   }
-  var planDay='fri';
-  (function(){var now=new Date();if(now>=new Date('2026-11-15T00:00:00-07:00'))planDay='sun';else if(now>=new Date('2026-11-14T00:00:00-07:00'))planDay='sat';})();
+  var planDay='thu';
+  (function(){var now=new Date();
+    if(now>=new Date('2026-11-15T00:00:00-07:00'))planDay='sun';
+    else if(now>=new Date('2026-11-14T00:00:00-07:00'))planDay='sat';
+    else if(now>=new Date('2026-11-13T00:00:00-07:00'))planDay='fri';})();
+  function kitHTML(){return '<div class="kit"><span><i class="navy"></i>Navy jersey</span><span><i class="gray"></i>Gray shorts</span><span><i class="navy"></i>Navy socks</span></div>';}
   function renderPlan(){
     document.querySelectorAll('#plantabs button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.day===planDay?'true':'false');});
-    document.getElementById('plan').innerHTML=PLANS[planDay].map(function(s,i){
-      return '<li data-n="'+(i+1)+'"'+(s[2]?' class="gameday"':'')+'><b>'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></li>';
+    var day=PLANS[planDay];
+    document.getElementById('plan-note').textContent=day.note;
+    document.getElementById('plan').innerHTML=day.items.map(function(x){
+      var tags='';
+      if(x.tbd)tags+='<span class="ptag tbd">'+x.tbd+'</span>';
+      return '<li class="k-'+x.k+'"><div class="pt">'+esc(x.t)+'</div><div class="pb">'+(tags?'<div class="tags">'+tags+'</div>':'')+'<b>'+esc(x.n)+'</b><span>'+esc(x.d)+'</span>'+(x.kit?kitHTML():'')+'</div></li>';
     }).join('');
   }
   document.getElementById('plantabs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;planDay=b.dataset.day;renderPlan();});
@@ -760,7 +772,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
   totop.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
   document.getElementById('gametabs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;gameDay=b.dataset.gday;renderDays();});
-  renderNear();renderTeamEvents();renderEvents();renderPlan();renderList('things');renderList('eats');
+  renderNear();renderEvents();renderPlan();renderList('things');renderList('eats');
 
   renderAll();
   setInterval(renderNext,60000);
