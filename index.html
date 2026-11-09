@@ -14,9 +14,10 @@
 /* Layout: Rocklin FC match-day look. Cream page, rounded navy hero card with a coral date tab, white game cards keyed by team color. Single light theme on purpose to match the club's brand. */
 :root{
   --bg:#f4efe6; --surface:#ffffff; --ink:#1b2541; --muted:#6c7081; --line:#e7e0d3; --chipbg:#f1ebe0;
-  --navy:#1b2541; --navy-2:#27325a; --on-navy:#ffffff; --navy-muted:#a9b2c8; --peach:#f2a26a;
+  --navy:#1b2541; --navy-2:#27325a; --on-navy:#ffffff; --navy-muted:#a9b2c8; --peach:#8ed6d0;
   --card:#e8704f; --card-ink:#ffffff; --card-soft:#fdeee8;
-  --u14:#3d6ea8; --u13:#2b9c8e; --turf:#2b9c8e;
+  --u14:#3d6ea8; --u13:#6b5bd2; --turf:#2b8a84;
+  --robin:#8ed6d0; --robin-deep:#2b8a84; --robin-mist:#ddf2f0;
   --danger:#c8402f;
   --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   color-scheme:light;
@@ -37,7 +38,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 /* Hero card */
 .hero .wrap{padding-block:16px 0}
-.hero-card{background:var(--navy);color:var(--on-navy);border-radius:20px;overflow:hidden;display:grid;gap:16px;padding:22px 22px 20px}
+.hero-card{border-bottom:6px solid var(--robin);background:var(--navy);color:var(--on-navy);border-radius:20px;overflow:hidden;display:grid;gap:16px;padding:22px 22px 20px}
 .hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
 .hero-top > div:first-child{min-width:0}
 /* Crest: beside the title under the date tab on wider screens; floated top-right of the text on phones */
@@ -56,7 +57,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .eyebrow{color:var(--peach)}
 .hero h1{font-size:clamp(30px,6.4vw,42px);font-weight:800}
 .sub{color:var(--navy-muted);font-size:14.5px}
-.datebadge{flex:none;background:var(--card);color:#fff;margin:-22px -22px 0 0;padding:20px 22px 18px 34px;border-radius:0 20px 0 64px;text-align:right;font-weight:800;font-size:26px;line-height:1;letter-spacing:-.01em}
+.datebadge{flex:none;background:var(--robin);color:var(--navy);margin:-22px -22px 0 0;padding:20px 22px 18px 34px;border-radius:0 20px 0 64px;text-align:right;font-weight:800;font-size:26px;line-height:1;letter-spacing:-.01em}
 .datebadge small{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;margin-top:6px;opacity:.9}
 .venue{display:flex;flex-direction:column;gap:2px}
 .venue .label{color:var(--peach)}
@@ -72,7 +73,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .next .top .label{color:var(--peach)}
 .next .when{font-weight:800;font-size:clamp(36px,9vw,48px);line-height:1;letter-spacing:-.02em}
 .next .when small{display:block;font-size:.36em;font-weight:600;color:var(--navy-muted);margin-top:6px;letter-spacing:0}
-.next .cd{font-weight:700;font-size:15px;background:#ffffff1a;padding:3px 10px;border-radius:999px}
+.next .cd{font-weight:700;font-size:15px;background:var(--robin);color:var(--navy);padding:3px 10px;border-radius:999px}
 .next .opp{font-size:18px;font-weight:700}
 .next .where{color:var(--navy-muted);font-size:14px}
 .next .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
@@ -80,7 +81,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 @media (min-width:560px){.next .actions{display:flex}}
 .btn{display:inline-flex;align-items:center;gap:6px;border-radius:10px;padding:9px 14px;font-weight:700;font-size:14.5px;text-decoration:none;border:1.5px solid transparent}
 .btn.primary{background:var(--card);color:#fff}
-.btn.ghost{border-color:#ffffff40;color:var(--on-navy);background:transparent}
+.btn.ghost{border-color:var(--robin);color:var(--robin);background:transparent}
 @media (max-width:520px){
   .hero-card{padding:18px 16px}
   .hero-top{flex-direction:column-reverse;gap:10px}
@@ -100,18 +101,18 @@ main .wrap{display:grid;gap:36px;padding-block:20px 56px}
 section{display:grid;gap:12px;min-width:0}
 .sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .sec-h h2{font-size:24px;font-weight:800}
-.addrlink{color:var(--card)!important;text-decoration:underline;text-underline-offset:3px}
+.addrlink{color:var(--robin-deep)!important;text-decoration:underline;text-underline-offset:3px}
 .sec-h .aside{color:var(--muted);font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
 .panel{background:var(--surface);border-radius:14px;padding:16px 18px;box-shadow:0 1px 0 var(--line)}
 .note{color:var(--muted);font-size:14px}
-.note a{color:var(--ink);font-weight:600}
+.note a{color:var(--robin-deep);font-weight:700}
 ul.plain{margin:0;padding-left:1.1em;display:grid;gap:6px}
 
 /* Need-to-know */
 .know{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 @media (min-width:720px){.know{grid-template-columns:repeat(4,1fr)}}
 .know div{background:var(--surface);border-radius:12px;padding:11px 12px;font-size:13.5px;line-height:1.4;min-width:0;box-shadow:0 1px 0 var(--line)}
-.know b{display:block;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--card);margin-bottom:3px}
+.know b{display:block;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--robin-deep);margin-bottom:3px}
 
 /* Schedule */
 .day{display:grid;gap:8px}
@@ -119,7 +120,7 @@ ul.plain{margin:0;padding-left:1.1em;display:grid;gap:6px}
 .day-h .label{color:var(--peach);display:block;margin-bottom:2px}
 .day-h h3{font-size:21px;font-weight:800}
 .wx{display:flex;align-items:center;gap:8px;font-size:14px}
-.wx .sun{width:16px;height:16px;border-radius:50%;background:var(--peach);flex:none}
+.wx .sun{width:16px;height:16px;border-radius:50%;background:#f2b45a;flex:none}
 .wx b{font-size:16px}
 .wx .rain{background:#ffffff1f;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:600;color:var(--navy-muted)}
 .game{background:var(--surface);border-radius:14px;display:grid;grid-template-columns:100px 1fr;gap:4px 14px;padding:14px 16px 14px 20px;position:relative;box-shadow:0 1px 0 var(--line)}
@@ -132,7 +133,7 @@ ul.plain{margin:0;padding-left:1.1em;display:grid;gap:6px}
 .pill{display:inline-flex;align-items:center;font-weight:700;font-size:12px;padding:3px 9px;border-radius:999px;background:var(--team);color:#fff;vertical-align:2px}
 .pill.ours{background:var(--card);color:#fff}
 .chip{border:0;background:var(--chipbg);border-radius:6px;padding:6px 10px;font-size:12.5px;font-weight:700;color:var(--ink)}
-button.chip:hover{background:var(--card-soft);color:var(--card)}
+button.chip:hover{background:var(--robin-mist);color:var(--robin-deep)}
 .game.focus{box-shadow:0 0 0 2px var(--team)}
 .game.dim{opacity:.6}
 .ha{font-weight:700;color:var(--muted);margin-right:2px}
@@ -162,7 +163,7 @@ th{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut
 .hotel h3{font-size:17px;font-weight:800}
 .hotel .addr,.med .addr{color:var(--muted);font-size:13.5px}
 .hotel .drive{justify-self:start;background:var(--navy);color:#fff;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;margin-top:4px}
-.hotel a,.med a{font-weight:700;font-size:14px;color:var(--card)}
+.hotel a,.med a{font-weight:700;font-size:14px;color:var(--robin-deep)}
 .hotel.ours{box-shadow:0 0 0 2px var(--team)}
 
 .price{font-size:42px;font-weight:800;line-height:1;letter-spacing:-.02em}
@@ -170,9 +171,9 @@ th{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut
 
 .check{display:grid;gap:2px;margin:0;padding:0;list-style:none}
 .check label{display:flex;gap:10px;align-items:flex-start;padding:6px 0;cursor:pointer;font-size:15px}
-.check input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--card);flex:none}
+.check input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--robin-deep);flex:none}
 .check input:checked + span{color:var(--muted);text-decoration:line-through}
-.panel h3{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--card);margin-bottom:8px}
+.panel h3{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--robin-deep);margin-bottom:8px}
 
 .med{display:grid;gap:14px}
 .med .item{display:grid;gap:2px}
@@ -197,13 +198,13 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
 @media (max-width:440px){.game{grid-template-columns:82px 1fr;padding:12px 14px 12px 18px}.game .t{font-size:19px}}
 /* Food & fun */
 .subh{font-size:18px;font-weight:800;margin-top:10px}
-.minih{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--card);margin-top:6px}
+.minih{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--robin-deep);margin-top:6px}
 
 .ftabs{display:flex;flex-wrap:wrap;gap:6px}
-.ftabs button{min-height:40px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;font-size:14px;padding:8px 14px;border-radius:999px}
+.ftabs button{min-height:40px;border:1.5px solid var(--robin-mist);background:var(--robin-mist);color:var(--ink);font-weight:700;font-size:14px;padding:8px 14px;border-radius:999px}
 .ftabs button span{font-weight:500;color:var(--muted);margin-left:3px}
-.ftabs button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
-.ftabs button[aria-pressed="true"] span{color:var(--navy-muted)}
+.ftabs button[aria-pressed="true"]{background:var(--robin);border-color:var(--robin);color:var(--navy)}
+.ftabs button[aria-pressed="true"] span{color:var(--navy)}
 .events{display:grid;grid-template-columns:1fr;gap:10px}
 @media (min-width:640px){.events{grid-template-columns:1fr 1fr}}
 @media (min-width:900px){.events{grid-template-columns:repeat(3,1fr)}}
@@ -215,7 +216,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
 .ev a{color:var(--peach);font-weight:700;font-size:13.5px;margin-top:4px}
 #plantabs{display:grid;grid-template-columns:repeat(4,1fr)}
 #plantabs button{padding-inline:4px}
-.dp-note{margin:0;font-size:14px;font-weight:700;color:var(--card)}
+.dp-note{margin:0;font-size:14px;font-weight:700;color:var(--robin-deep)}
 .plan{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .plan li{background:var(--surface);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:84px 1fr;gap:2px 12px;box-shadow:0 1px 0 var(--line)}
 .plan .pt{font-weight:800;font-size:14px;line-height:1.3}
@@ -243,10 +244,10 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
 .thing p{margin:0;font-size:14px}
 .thing .facts{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--muted)}
 .thing .facts b{color:var(--ink);font-weight:700}
-.thing a{color:var(--card);font-weight:700;font-size:13.5px;justify-self:start}
+.thing a{color:var(--robin-deep);font-weight:700;font-size:13.5px;justify-self:start}
 .more{justify-self:start;border:1.5px solid var(--navy);background:transparent;color:var(--navy);font-weight:700;font-size:14px;padding:8px 14px;border-radius:10px}
 .more:hover{background:var(--navy);color:#fff}
-.confirm{border-left:5px solid var(--card)}
+.confirm{border-left:5px solid var(--robin-deep)}
 .neargroup{display:grid;gap:8px;margin-top:4px}
 .neargroup + .neargroup{margin-top:14px}
 .neargroup .label{color:var(--muted)}
@@ -256,7 +257,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
 .nrow .stars{flex:none;font-size:12px;font-weight:700;background:var(--chipbg);border-radius:999px;padding:2px 8px;white-space:nowrap}
 .nrow p{margin:0;font-size:14px}
 .nrow .foot{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted);align-items:center}
-.nrow a{color:var(--card);font-weight:700}
+.nrow a{color:var(--robin-deep);font-weight:700}
 .nrow.pick{box-shadow:0 0 0 2px var(--card);background:var(--card-soft)}
 .pickbadge{justify-self:start;background:var(--card);color:#fff;font-size:12px;font-weight:800;letter-spacing:.04em;border-radius:999px;padding:3px 10px}
 @media (min-width:640px){.neargroup .rows .pick{grid-column:1 / -1}}
@@ -594,7 +595,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
 
 
   /* ---------- Food & fun ---------- */
-  var AREAS={S:{short:'Old Town',name:'Scottsdale / Old Town',color:'var(--card)',note:'Hotel base. Walkable shops, Fashion Square and this weekend\'s Arts & Crafts Festival.'},
+  var AREAS={S:{short:'Old Town',name:'Scottsdale / Old Town',color:'var(--robin-deep)',note:'Hotel base. Walkable shops, Fashion Square and this weekend\'s Arts & Crafts Festival.'},
     B:{short:'Boardwalk',name:'Boardwalk / Talking Stick',color:'var(--u14)',note:'Lots of attractions on one parking lot: OdySea, Butterfly Wonderland, Topgolf, iFLY.'},
     M:{short:'Mesa / Tempe',name:'Mesa / Tempe',color:'var(--u13)',note:'Closer to the fields for after-game time.'},
     P:{short:'Phoenix',name:'Phoenix',color:'var(--navy)',note:'Bigger outings for a free morning or evening. Longer drives.'}};
