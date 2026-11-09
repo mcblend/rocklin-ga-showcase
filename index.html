@@ -224,6 +224,18 @@ footer{color:var(--muted);font-size:13px;padding-block:0 36px;text-align:center}
 .more{justify-self:start;border:1.5px solid var(--navy);background:transparent;color:var(--navy);font-weight:700;font-size:14px;padding:8px 14px;border-radius:10px}
 .more:hover{background:var(--navy);color:#fff}
 .confirm{border-left:5px solid var(--card)}
+.neargroup{display:grid;gap:8px;margin-top:4px}
+.neargroup + .neargroup{margin-top:14px}
+.neargroup .label{color:var(--muted)}
+.nrow{background:var(--surface);border-radius:12px;padding:12px 16px;display:grid;gap:4px;box-shadow:0 1px 0 var(--line)}
+.nrow .head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.nrow h4{margin:0;font-size:16px;font-weight:800;line-height:1.25;min-width:0}
+.nrow .stars{flex:none;font-size:12px;font-weight:700;background:var(--chipbg);border-radius:999px;padding:2px 8px;white-space:nowrap}
+.nrow p{margin:0;font-size:14px}
+.nrow .foot{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted);align-items:center}
+.nrow a{color:var(--card);font-weight:700}
+@media (min-width:640px){.neargroup .rows{display:grid;grid-template-columns:1fr 1fr;gap:8px}}
+.neargroup .rows{display:grid;gap:8px}
 </style>
 </head>
 <body>
@@ -384,6 +396,14 @@ footer{color:var(--muted);font-size:13px;padding-block:0 36px;text-align:center}
     <div class="ftabs" role="group" aria-label="Filter places to eat by area" data-filter="eats"></div>
     <div class="grid-things" id="eats"></div>
     <button type="button" class="more" id="eats-more"></button>
+
+    <h3 class="subh" id="nearby">Sports bars, spas &amp; shopping</h3>
+    <div class="ftabs" role="group" aria-label="Choose area" id="neartabs">
+      <button type="button" data-near="hotel" aria-pressed="true">Near the hotel</button>
+      <button type="button" data-near="fields" aria-pressed="false">Near the fields</button>
+    </div>
+    <p class="note areanote" id="near-note"></p>
+    <div id="near"></div>
 
     <div class="panel confirm"><h3>Confirm before you go</h3><p style="margin:0">Prices and hours change, so use each official link. Call restaurants for parties of 8 or more. Organ Stop takes group reservations at 20+. Topgolf and Revel Surf book out on weekend evenings. For food without leaving the grounds, Bristol's is at the fieldhouses.</p></div>
   </section>
@@ -658,7 +678,48 @@ footer{color:var(--muted);font-size:13px;padding-block:0 36px;text-align:center}
     document.querySelector('[data-filter="'+key+'"]').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;state[key].area=b.dataset.area;state[key].all=false;renderList(key);});
     document.getElementById(key+'-more').addEventListener('click',function(){state[key].all=!state[key].all;renderList(key);if(!state[key].all)document.getElementById(key==='things'?'todo':'eat').scrollIntoView();});
   });
-  renderTeamEvents();renderEvents();renderPlan();renderList('things');renderList('eats');
+
+  /* Near the hotel / near the fields. Ratings from Google, Nov 2026. mi = straight-line miles. */
+  var NEAR={
+    hotel:{note:'Around the U15 hotel in Scottsdale. Old Town is about 2 miles away.',groups:[
+      ['Sports bars',[
+        {n:'Mother Tucker\'s Tavern',r:'4.5',mi:'1.7',w:'Old Town',d:'Hosts college alumni watch parties, so the game is always on with sound.',q:'Mother Tucker\'s Tavern 4420 N Saddlebag Trail Scottsdale AZ'},
+        {n:'Boondocks Patio & Grill',r:'4.3',mi:'1.6',w:'Old Town',d:'Big patio with lots of screens and lawn games. Turns into a DJ crowd late, so go early.',q:'Boondocks Patio & Grill 4341 N 75th St Scottsdale AZ'},
+        {n:'Duke\'s Sports Bar & Grill',r:'4.2',mi:'3.1',w:'McDowell Rd',d:'Classic neighborhood sports bar with pool tables and wings.',q:'Duke\'s Sports Bar and Grill 7607 E McDowell Rd Scottsdale AZ'},
+        {n:'Backyards',r:'4.2',mi:'3.4',w:'Near the Boardwalk',d:'Plenty of TVs and has handled walk-in groups of about 20. Easy after a Boardwalk morning.',q:'Backyards 9261 E Via de Ventura Scottsdale AZ'}]],
+      ['Spa',[
+        {n:'Inspire Day Spa',r:'4.9',mi:'3.6',w:'Hayden Rd',d:'Massages and facials with a lakeside relaxation room. Open 9 AM-9 PM daily. Book ahead.',q:'Inspire Day Spa 8300 N Hayden Rd Scottsdale AZ'}]],
+      ['Shopping',[
+        {n:'Pavilions at Talking Stick',r:'4.4',mi:'2.4',w:'Talking Stick',d:'Big open-air center with Target, a movie theater, go-karts and quick food. Closest to the hotel.',q:'The Pavilions at Talking Stick Scottsdale AZ'},
+        {n:'Kierland Commons & Scottsdale Quarter',r:'4.6',mi:'8.5',w:'North Scottsdale',d:'Two upscale outdoor centers side by side. Free parking garages.',q:'Kierland Commons Scottsdale AZ'}]]
+    ]},
+    fields:{note:'Around Arizona Athletic Grounds in southeast Mesa and Gilbert.',groups:[
+      ['Sports bars',[
+        {n:'Point 22 Tavern',r:'4.5',mi:'1.5',w:'Eastmark',d:'The closest real sit-down spot to the fields. Gets kids\' food out fast. Indoor and patio seating.',q:'Point 22 Tavern 9248 E Cadence Pkwy Mesa AZ'},
+        {n:'Craft Culture Taproom',r:'4.7',mi:'1.4',w:'Eastmark',d:'Small taproom next to Point 22 with a few TVs, smash burgers and a patio.',q:'Craft Culture Wine and Taproom 9241 E Cadence Pkwy Mesa AZ'},
+        {n:'The HUB Grill and Bar',r:'4.5',mi:'6.0',w:'Sossaman Rd',d:'Large sports bar with private rooms. A good bet for a whole-team dinner.',q:'The HUB Grill and Bar 1925 S Sossaman Rd Mesa AZ'},
+        {n:'Blue 32 Sports Grill',r:'4.5',mi:'7.5',w:'Gilbert',d:'Sports grill on Williams Field Rd, on the way to SanTan Village.',q:'Blue 32 Sports Grill 1524 E Williams Field Rd Gilbert AZ'}]],
+      ['Spa',[
+        {n:'Cleanse Modern Day Spa',r:'5.0',mi:'9.7',w:'Gilbert',d:'Massages and facials. Closes 5:15 PM Fri-Sun, so plan a morning or mid-day slot.',q:'Cleanse Modern Day Spa 1090 S Gilbert Rd Gilbert AZ'}]],
+      ['Shopping',[
+        {n:'SanTan Village',r:'4.5',mi:'6.7',w:'Gilbert',d:'Best outdoor mall near the fields, with Macy\'s, Dillard\'s and plenty of restaurants.',q:'SanTan Village Gilbert AZ'},
+        {n:'Gilbert Gateway Towne Center',r:'4.4',mi:'3.9',w:'Power Rd',d:'Target and restaurants. The quickest errand stop from the fields.',q:'Gilbert Gateway Towne Center 5110 S Power Rd Mesa AZ'}]]
+    ]}
+  };
+  var nearSide='hotel';
+  function renderNear(){
+    document.querySelectorAll('#neartabs button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.near===nearSide?'true':'false');});
+    var side=NEAR[nearSide];
+    document.getElementById('near-note').textContent=side.note;
+    document.getElementById('near').innerHTML=side.groups.map(function(g){
+      return '<div class="neargroup"><span class="label">'+g[0]+'</span><div class="rows">'+g[1].map(function(x){
+        return '<article class="nrow"><div class="head"><h4>'+esc(x.n)+'</h4><span class="stars">'+x.r+' ★ Google</span></div><p>'+esc(x.d)+'</p>'+
+          '<div class="foot"><span>'+esc(x.w)+' · about '+x.mi+' mi</span><a href="https://www.google.com/maps/search/?api=1&amp;query='+encodeURIComponent(x.q)+'" target="_blank" rel="noopener">Directions ↗</a></div></article>';
+      }).join('')+'</div></div>';
+    }).join('');
+  }
+  document.getElementById('neartabs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;nearSide=b.dataset.near;renderNear();});
+  renderNear();renderTeamEvents();renderEvents();renderPlan();renderList('things');renderList('eats');
 
   renderAll();
   setInterval(renderNext,60000);
