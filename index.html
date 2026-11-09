@@ -472,7 +472,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
     {d:'sat',team:'U13',iso:'2026-11-14T17:15',away:false,opp:'City SC',field:11,match:454},
     {d:'sun',team:'U13',iso:'2026-11-15T11:00',away:false,opp:'Spokane Shadow',field:24,match:476},
     {d:'sun',team:'U14',iso:'2026-11-15T13:00',away:true,opp:'Washington East Surf SC',field:2,match:402},
-    {d:'sun',team:'U15',iso:'2026-11-15T13:15',away:false,opp:'Spokane Shadow',field:7,match:348}
+    {d:'sun',team:'U15',kit:1,iso:'2026-11-15T13:15',away:false,opp:'Spokane Shadow',field:7,match:348}
   ];
   var DAYS=[
     {k:'fri',name:'Fri',date:'Nov 13',n:1,hi:75,lo:58,rain:20},
@@ -627,11 +627,12 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
       {t:'3:30 PM',n:'U15 @ Arizona Surf SC East Valley',d:'Field 16 · Match #500. Same uniform as Friday, which is why it gets washed Friday night.',k:'game',kit:1},
       {t:'~6:00 PM',n:'Back at the hotel',d:'Mesh bag again. Uniforms go to Christi for washing.',k:'team'},
       {t:'7:30 PM',n:'Escape room',d:'Team outing. Time and location to be confirmed.',k:'team',tbd:'TBD'}]},
-    sun:{note:'Sun, Nov 15 · Final game. More details coming soon.',items:[
+    sun:{note:'Sun, Nov 15 · Final game and travel day',items:[
       {t:'9:30 AM',n:'Team breakfast',d:'The Bistro at the hotel.',k:'team'},
-      {t:'Late morning',n:'Check out and depart for the fields',d:'Departure time coming soon. Plan to arrive about 45 minutes before kickoff.',k:'team',tbd:'TBD'},
-      {t:'1:15 PM',n:'U15 vs Spokane Shadow',d:'Field 07 · Match #348',k:'game'},
-      {t:'After the game',n:'Head home',d:'Sunday games end by about 3:00 PM. Leave a buffer if you\'re flying out.',k:'free'}]}
+      {t:'11:00 AM',n:'Hotel checkout',d:'Unless you\'ve arranged a late checkout with the hotel.',k:'team'},
+      {t:'11:30-11:45 AM',n:'Depart for the fields',d:'Head out for parking and warm-up before the 1:15 PM kickoff.',k:'team'},
+      {t:'1:15 PM',n:'U15 vs Spokane Shadow',d:'Field 07 · Match #348',k:'game',kit:1},
+      {t:'After the game',n:'On your own',d:'Pack up and head home. Safe travels!',k:'free'}]}
   };
   var THINGS=[
     {n:'OdySea Aquarium',a:'B',c:'Animals · Indoors',h:'12-18',m:'20-28',p:'Adults ~$50',w:'Any time',d:'Largest aquarium in the Southwest. Sharks, sea lions and a rotating theater. Plan 2-3 hours; twilight discount after 4:30.',u:'https://www.odyseaaquarium.com/'},
@@ -728,7 +729,6 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
   var NEAR={
     hotel:{note:'Around the U15 hotel in Scottsdale. Old Town is about 2 miles away.',groups:[
       ['Sports bars',[
-        {pick:true,n:'Local pick: name coming soon',r:'',mi:'',w:'',d:'A local\'s favorite sports bar. Details are being added shortly.',q:''},
         {n:'Mother Tucker\'s Tavern',r:'4.5',mi:'1.7',w:'Old Town',d:'Hosts college alumni watch parties, so the game is always on with sound.',q:'Mother Tucker\'s Tavern 4420 N Saddlebag Trail Scottsdale AZ'},
         {n:'Boondocks Patio & Grill',r:'4.3',mi:'1.6',w:'Old Town',d:'Big patio with lots of screens and lawn games. Turns into a DJ crowd late, so go early.',q:'Boondocks Patio & Grill 4341 N 75th St Scottsdale AZ'},
         {n:'Duke\'s Sports Bar & Grill',r:'4.2',mi:'3.1',w:'McDowell Rd',d:'Classic neighborhood sports bar with pool tables and wings.',q:'Duke\'s Sports Bar and Grill 7607 E McDowell Rd Scottsdale AZ'},
