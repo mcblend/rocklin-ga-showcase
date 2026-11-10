@@ -361,7 +361,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
   </section>
 
   <section id="pack">
-    <div class="sec-h"><h2>Weather &amp; pack</h2><span class="aside">Forecast as of Nov 8</span></div>
+    <div class="sec-h"><h2>Weather &amp; pack</h2><span class="aside">Forecast as of Nov 9</span></div>
     <div class="panel">
       <h3>Warm sun, cold nights</h3>
       <ul class="plain">
@@ -479,9 +479,9 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
     {d:'sun',team:'U15',kit:'home',iso:'2026-11-15T13:15',away:false,opp:'Spokane Shadow',field:7,match:348}
   ];
   var DAYS=[
-    {k:'fri',name:'Fri',date:'Nov 13',n:1,hi:75,lo:58,rain:20},
-    {k:'sat',name:'Sat',date:'Nov 14',n:2,hi:75,lo:57,rain:10},
-    {k:'sun',name:'Sun',date:'Nov 15',n:3,hi:76,lo:57,rain:15}
+    {k:'fri',name:'Fri',date:'Nov 13',n:1,hi:77,lo:62},
+    {k:'sat',name:'Sat',date:'Nov 14',n:2,hi:73,lo:60},
+    {k:'sun',name:'Sun',date:'Nov 15',n:3,hi:74,lo:56}
   ];
   var FIELDS={1:[468,262],2:[557,243],3:[612,243],4:[666,243],5:[163,325],6:[218,325],7:[273,325],8:[328,325],9:[383,325],10:[446,325],11:[501,325],12:[556,325],13:[611,325],14:[666,325],15:[163,408],16:[218,408],17:[273,408],18:[328,408],19:[383,408],20:[446,408],21:[501,408],22:[556,408],23:[611,408],24:[666,408]};
   var LOT={2:'Lot 6',6:'Lot 1',7:'Lot 1',11:'Lot 6',14:'Lot 6',16:'Lot 1',24:'Lot 6'};
@@ -518,7 +518,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
       '<div class="actions"><a class="btn primary" href="'+VENUE+'" target="_blank" rel="noopener">Directions</a><button type="button" class="btn ghost" data-field="'+g.field+'">Find field '+g.field+'</button></div>';
   }
 
-  var WX_URL='https://forecast.weather.gov/MapClick.php?lat=33.3&lon=-111.627';
+  var WX_URL='https://www.msn.com/en-us/weather/forecast/in-Mesa,AZ';
   var gameDay='fri';
   (function(){var now=new Date();if(now>=new Date('2026-11-15T00:00:00-07:00'))gameDay='sun';else if(now>=new Date('2026-11-14T00:00:00-07:00'))gameDay='sat';})();
   function renderDays(){
@@ -526,7 +526,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
     document.querySelectorAll('#gametabs button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.gday===gameDay?'true':'false');});
     DAYS.filter(function(d){return d.k===gameDay;}).forEach(function(d){
       var gs=GAMES.filter(function(g){return g.d===d.k;}).sort(function(a,b){return a.t-b.t;});
-      out+='<article class="day"><div class="day-h"><div><span class="label">Day '+d.n+'</span><h3>'+d.name+' · '+d.date+'</h3></div><a class="wx num" href="'+WX_URL+'" target="_blank" rel="noopener" aria-label="Mesa forecast from the National Weather Service"><span class="sun"></span><b>'+d.hi+'°</b> / '+d.lo+'°<span class="rain">'+d.rain+'% rain</span><span class="wxgo">↗</span></a></div>';
+      out+='<article class="day"><div class="day-h"><div><span class="label">Day '+d.n+'</span><h3>'+d.name+' · '+d.date+'</h3></div><a class="wx num" href="'+WX_URL+'" target="_blank" rel="noopener" aria-label="Mesa forecast on MSN Weather"><span class="sun"></span><b>'+d.hi+'°</b> / '+d.lo+'°<span class="wxgo">↗</span></a></div>';
       gs.forEach(function(g){
         var cls=team==='ALL'?'':(g.team===team?' focus':' dim');
         out+='<div class="game'+cls+'" style="--team:'+TEAM_COLOR[g.team]+'">'+
