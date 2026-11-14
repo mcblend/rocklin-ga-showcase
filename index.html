@@ -226,6 +226,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
 .plan .pb{display:grid;gap:3px;min-width:0}
 .plan .pb b{font-size:15px;line-height:1.3}
 .plan .pb span{font-size:14px;color:var(--muted)}
+.plink{justify-self:start;color:var(--robin-deep);font-weight:700;font-size:14px;margin-top:2px}
 .plan .tags{display:flex;flex-wrap:wrap;gap:4px}
 .ptag{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:2px 8px;background:var(--card-soft);color:var(--card)}
 .ptag.tbd{background:var(--chipbg);color:var(--ink)}
@@ -623,7 +624,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
       {t:'12:00 PM',n:'Depart for the fields',d:'Arrive by 12:45 PM for parking and warm-up. The drive is about 40 minutes.',k:'team'},
       {t:'1:30 PM',n:'U15 vs West Coast F.C.',d:'Field 14 · Match #296. We\'re the home team.',k:'game',kit:'home'},
       {t:'3:45-4:00 PM',n:'Back at the hotel',d:'Put the game uniform in the mesh bag and give it to Christi, our Team Manager. She\'s washing them tonight so they\'re ready for Sunday\'s game.',k:'team'},
-      {t:'6:00 PM',n:'Escape room',d:'Team outing. Time and location to be confirmed.',k:'team',tbd:'Approx.'}]},
+      {t:'6:00 PM',n:'Escape room: Escapology Scottsdale',d:'9039 E Talking Stick Way, Scottsdale, AZ 85250. At the Pavilions at Talking Stick, about 10 minutes from the hotel.',map:'https://www.google.com/maps/search/?api=1&query=Escapology+Escape+Rooms+Scottsdale+9039+E+Talking+Stick+Way+Scottsdale+AZ+85250',k:'team',tbd:'Approx.'}]},
     sat:{note:'Sat, Nov 14 · Game day',items:[
       {t:'9:30 AM',n:'Team breakfast',d:'Breakfast buffet at The Bistro at the hotel.',k:'team'},
       {t:'Until 2:00 PM',n:'Free time',d:'Ideas: Butterfly Wonderland or OdySea at the Boardwalk, about 15 minutes from the hotel. Be back to leave at 2.',k:'free'},
@@ -697,7 +698,7 @@ footer{color:var(--muted);font-size:13px;padding-block:0 84px;text-align:center}
     document.getElementById('plan').innerHTML=day.items.map(function(x){
       var tags='';
       if(x.tbd)tags+='<span class="ptag tbd">'+x.tbd+'</span>';
-      return '<li class="k-'+x.k+'"><div class="pt">'+esc(x.t)+'</div><div class="pb">'+(tags?'<div class="tags">'+tags+'</div>':'')+'<b>'+esc(x.n)+'</b><span>'+esc(x.d)+'</span>'+kitHTML(x.kit)+'</div></li>';
+      return '<li class="k-'+x.k+'"><div class="pt">'+esc(x.t)+'</div><div class="pb">'+(tags?'<div class="tags">'+tags+'</div>':'')+'<b>'+esc(x.n)+'</b><span>'+esc(x.d)+'</span>'+(x.map?'<a class="plink" href="'+x.map+'" target="_blank" rel="noopener">Directions ↗</a>':'')+kitHTML(x.kit)+'</div></li>';
     }).join('');
   }
   document.getElementById('plantabs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;planDay=b.dataset.day;renderPlan();});
